@@ -1,0 +1,24 @@
+Undo Feature Design - Expense Tracker App
+
+Overview:
+The undo feature allows the user to reverse the last transaction removal action. This improves usability and aligns with standard UI best practices.
+
+Architecture Alignment:
+This feature adheres to the Model-View-Controller (MVC) architecture. Each component has defined responsibilities:
+
+Model (ExpenseTrackerModel.java):
+- Maintain a stack (e.g., `Deque<Transaction> undoStack`) to store recently removed transactions.
+- Modify the removeTransaction() method to push the removed transaction to undoStack.
+- Implement an undoRemove() method to pop the last transaction from the stack and re-add it.
+
+View (ExpenseTrackerView.java):
+- Add an "Undo" button to the user interface.
+- Display appropriate messages when undo is not possible (e.g., "No transaction to undo").
+
+Controller (ExpenseTrackerController.java):
+- Handle the action listener for the Undo button.
+- Call model.undoRemove() and refresh the transaction list and total cost on success.
+
+Edge Cases:
+- If no transaction was removed yet, disable the Undo button or display a message.
+- Clear the undoStack if the application is
